@@ -1,164 +1,127 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Solace Client</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
-  <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      background: radial-gradient(circle at top left, #0A0A0A, #000000 80%);
-      min-height: 100vh;
-      overflow-x: hidden;
+<!DOCTYPE html><html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Solace Client</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+        background: radial-gradient(circle at top left, #0a0a0a, #000000);
+        min-height: 100vh;
+        color: #e4e4e4;
+        overflow-x: hidden;
+      }@keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
     }
-
-    @keyframes fadeInDown {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
+    to {
+      opacity: 1;
+      transform: translateY(0);
     }
+  }
 
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
+  .animate-fade-in-up {
+    animation: fadeInUp 0.8s ease-out both;
+  }
 
-    @keyframes slideInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+  .section {
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(106, 82, 171, 0.4);
+    box-shadow: 0 10px 30px rgba(106, 82, 171, 0.3);
+    border-radius: 1.5rem;
+  }
 
-    .animate-fade-in-down { animation: fadeInDown 0.8s ease-out forwards; }
-    .animate-fade-in { animation: fadeIn 0.8s ease-out forwards; animation-delay: 0.3s; opacity: 0; }
-    .animate-slide-in-up { animation: slideInUp 0.8s ease-out forwards; animation-delay: 0.6s; opacity: 0; }
+  .download-btn {
+    background: linear-gradient(135deg, #6a52ab, #8b5cf6);
+    transition: all 0.3s ease;
+  }
 
-    .section-gradient::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: linear-gradient(135deg, rgba(106, 82, 171, 0.08), rgba(0, 0, 0, 0.08));
-      border-radius: inherit;
-      z-index: 0;
-    }
-    .section-gradient > * { position: relative; z-index: 1; }
+  .download-btn:hover {
+    background: linear-gradient(135deg, #8b5cf6, #6a52ab);
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 6px 15px rgba(106, 82, 171, 0.6);
+  }
+</style>
 
-    .message-box-overlay {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background-color: rgba(0, 0, 0, 0.7);
-      display: flex; justify-content: center; align-items: center;
-      z-index: 1000;
-    }
-
-    .message-box {
-      background: linear-gradient(145deg, #1A1A1A, #0D0D0D);
-      padding: 2.5rem; border-radius: 1rem;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-      color: #f0f0f0; text-align: center;
-      max-width: 90%; width: 400px; border: 1px solid rgba(106, 82, 171, 0.5);
-    }
-
-    .message-box h3 { font-size: 1.8rem; margin-bottom: 1rem; color: #93c5fd; }
-    .message-box p { font-size: 1.1rem; margin-bottom: 2rem; color: #ccc; line-height: 1.6; }
-
-    .message-box button {
-      background: linear-gradient(90deg, #6a52ab, #8b5cf6);
-      color: white; padding: 0.8rem 2rem; border: none;
-      border-radius: 0.5rem; font-size: 1rem; cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(106, 82, 171, 0.4);
-    }
-
-    .message-box button:hover {
-      background: linear-gradient(90deg, #8b5cf6, #6a52ab);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(106, 82, 171, 0.6);
-    }
-  </style>
-</head>
-<body class="flex flex-col items-center justify-center px-4 py-8 md:px-8 lg:px-16 text-gray-100 min-h-screen">
-
-  <!-- Header Section -->
-  <header class="flex flex-row items-center space-x-6 mb-12 animate-fade-in-down">
+  </head>  <body class="flex flex-col items-center px-4 py-10 sm:px-6 lg:px-12 space-y-16">
+    <!-- Header -->
+    <header class="flex flex-row items-center space-x-6 mb-12 animate-fade-in-down">
     <img class="w-20 h-20 rounded-2xl shadow-xl transform hover:scale-105 transition-transform duration-300" src="Untitled142_20250613154757.png" alt="Solace Logo">
     <div>
       <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#6a52ab] drop-shadow-lg leading-tight">Solace Client</h1>
       <p class="text-base sm:text-lg lg:text-xl text-gray-300 mt-2">The cleanest Bedrock Edition hack texture pack client</p>
     </div>
-  </header>
+  </header><!-- Why Choose Section -->
+<section class="section w-full max-w-4xl p-6 sm:p-10 animate-fade-in-up">
+  <h2 class="text-3xl sm:text-4xl font-bold text-[#6a52ab] text-center mb-6">Why Choose Solace?</h2>
+  <p class="text-base sm:text-lg text-gray-300 leading-relaxed">
+    <strong class="text-white">Solace</strong> is designed to be the most minimal and powerful Bedrock Edition hack texture pack client. It includes <strong class="text-[#6a52ab]">customizable modules</strong>, <strong class="text-[#6a52ab]">combat enhancements</strong>, and stays <strong class="text-[#6a52ab]">undetected</strong> on most servers. Get smoother gameplay, clean visuals, and unmatched utility.
+  </p>
+  <p class="text-right text-sm text-gray-400 mt-6">Developed by <a href="https://yami-chi.vercel.app" target="_blank" class="text-[#6a52ab] hover:underline">Yami</a></p>
+</section>
 
-  <!-- Why Choose Solace Section -->
-  <section class="w-full max-w-4xl p-6 sm:p-8 mb-12 bg-black/60 backdrop-blur-md border border-[#6a52ab]/50 rounded-3xl shadow-2xl shadow-purple-900/40 relative overflow-hidden section-gradient animate-slide-in-up">
-    <h2 class="text-4xl font-bold text-[#6a52ab] mb-8 text-center relative z-10">Why Choose Solace?</h2>
-    <p class="text-lg text-gray-300 leading-relaxed mb-6">
-      <strong class="text-white">Solace</strong> is meticulously designed to be the cleanest Bedrock Edition hack texture pack client available.
-      It offers unparalleled <strong class="text-[#6a52ab] hover:text-purple-300 transition-colors">customization options</strong>, powerful
-      <strong class="text-[#6a52ab] hover:text-purple-300 transition-colors">combat utilities</strong>, and advanced features that make it
-      <strong class="text-[#6a52ab] hover:text-purple-300 transition-colors">nearly undetectable</strong> on most servers.
-      Elevate your gameplay with Solace's seamless integration and robust performance.
-    </p>
-    <div class="text-right text-sm text-gray-400">
-      Developed by <a href="https://yami-chi.vercel.app" target="_blank" class="text-[#6a52ab] hover:underline">Yami</a>
-    </div>
-  </section>
-
-  <!-- Downloads Section -->
-  <section class="w-full max-w-4xl p-6 sm:p-8 mb-12 bg-black/60 backdrop-blur-md border border-[#6a52ab]/50 rounded-3xl shadow-2xl shadow-purple-900/40 relative overflow-hidden section-gradient animate-slide-in-up" style="animation-delay: 0.8s;">
-    <h2 class="text-4xl font-bold text-[#6a52ab] mb-8 text-center relative z-10">Downloads</h2>
-    <div class="space-y-6">
-      <div class="bg-black/70 backdrop-blur-sm rounded-xl p-6 flex flex-col sm:flex-row justify-between items-center border border-[#6a52ab]/40 shadow-lg hover:scale-105 transition-all duration-300">
-        <span class="text-xl font-semibold text-gray-200 mb-3 sm:mb-0"><strong>Solace v1.0</strong></span>
-        <button id="downloadButton" class="bg-gradient-to-r from-[#6a52ab] to-indigo-600 text-white px-8 py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-indigo-700 transition">
-          Download
-        </button>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer Section -->
-  <footer class="mt-auto pb-8 pt-6 flex space-x-6 justify-center text-4xl animate-fade-in" style="animation-delay: 1s;">
-    <a href="https://github.com/Sukrisus" target="_blank" class="text-white hover:text-[#6a52ab] transition-colors duration-200"><i class="fab fa-github"></i></a>
-    <a href="https://youtube.com/@sucidal-yami?si=YfMGkEia6t-_HQTZ" target="_blank" class="text-white hover:text-[#6a52ab] transition-colors duration-200"><i class="fab fa-youtube"></i></a>
-  </footer>
-
-  <!-- Message Box -->
-  <div id="messageBoxContainer" class="message-box-overlay hidden">
-    <div class="message-box">
-      <h3 id="messageBoxTitle"></h3>
-      <p id="messageBoxContent"></p>
-      <button id="messageBoxCloseButton">Close</button>
-    </div>
+<!-- Downloads -->
+<section class="section w-full max-w-4xl p-6 sm:p-10 animate-fade-in-up">
+  <h2 class="text-3xl sm:text-4xl font-bold text-[#6a52ab] text-center mb-6">Downloads</h2>
+  <p class="text-sm text-gray-400 text-center mb-4 italic">Not to be relinked or downloaded separately</p>
+  <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 sm:gap-8 mt-6">
+    <span class="text-xl font-semibold">Solace v1.0</span>
+    <button id="downloadButton" class="download-btn text-white px-6 py-3 rounded-lg text-base font-semibold w-full sm:w-auto">Download</button>
   </div>
+</section>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const downloadButton = document.getElementById('downloadButton');
-      const messageBoxContainer = document.getElementById('messageBoxContainer');
-      const messageBoxTitle = document.getElementById('messageBoxTitle');
-      const messageBoxContent = document.getElementById('messageBoxContent');
-      const messageBoxCloseButton = document.getElementById('messageBoxCloseButton');
+<!-- Footer -->
+<footer class="flex space-x-6 text-3xl animate-fade-in-up">
+  <a href="https://github.com/Sukrisus" target="_blank" class="text-white hover:text-[#6a52ab] transition"><i class="fab fa-github"></i></a>
+  <a href="https://youtube.com/@sucidal-yami?si=YfMGkEia6t-_HQTZ" target="_blank" class="text-white hover:text-[#6a52ab] transition"><i class="fab fa-youtube"></i></a>
+</footer>
 
-      function showMessageBox(title, content) {
-        messageBoxTitle.textContent = title;
-        messageBoxContent.textContent = content;
-        messageBoxContainer.classList.remove('hidden');
-      }
+<!-- Message Box -->
+<div id="messageBoxContainer" class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50">
+  <div class="bg-[#111] border border-[#6a52ab] rounded-2xl shadow-xl p-8 max-w-sm text-center text-gray-200 animate-fade-in-up">
+    <h3 class="text-2xl text-[#93c5fd] font-bold mb-4" id="messageBoxTitle"></h3>
+    <p class="mb-6 text-base" id="messageBoxContent"></p>
+    <button id="messageBoxCloseButton" class="download-btn px-6 py-2 rounded-md text-white font-semibold">Close</button>
+  </div>
+</div>
 
-      function hideMessageBox() {
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const downloadButton = document.getElementById('downloadButton');
+    const messageBoxContainer = document.getElementById('messageBoxContainer');
+    const messageBoxTitle = document.getElementById('messageBoxTitle');
+    const messageBoxContent = document.getElementById('messageBoxContent');
+    const messageBoxCloseButton = document.getElementById('messageBoxCloseButton');
+
+    downloadButton.addEventListener('click', () => {
+      messageBoxTitle.textContent = 'Download Unavailable';
+      messageBoxContent.textContent = 'This version is not released yet. Please check back later.';
+      messageBoxContainer.classList.remove('hidden');
+      messageBoxContainer.classList.add('flex');
+    });
+
+    messageBoxCloseButton.addEventListener('click', () => {
+      messageBoxContainer.classList.remove('flex');
+      messageBoxContainer.classList.add('hidden');
+    });
+
+    messageBoxContainer.addEventListener('click', (e) => {
+      if (e.target === messageBoxContainer) {
+        messageBoxContainer.classList.remove('flex');
         messageBoxContainer.classList.add('hidden');
       }
-
-      downloadButton.addEventListener('click', () => {
-        showMessageBox('Download Information', 'This version is not released yet. Please check back later for updates!');
-      });
-
-      messageBoxCloseButton.addEventListener('click', hideMessageBox);
-      messageBoxContainer.addEventListener('click', (event) => {
-        if (event.target === messageBoxContainer) hideMessageBox();
-      });
     });
-  </script>
-</body>
+  });
+</script>
+
+  </body>
 </html>
