@@ -1,127 +1,235 @@
-<!DOCTYPE html><html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Solace Client</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Inter Font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
-    <!-- FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
-    <style>
-      body {
-        font-family: 'Inter', sans-serif;
-        background: radial-gradient(circle at top left, #0a0a0a, #000000);
-        min-height: 100vh;
-        color: #e4e4e4;
-        overflow-x: hidden;
-      }@keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Solace Client</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap">
+  <style>
+    :root {
+      --bg: #0d0d0d;
+      --accent: #6a52ab;
+      --text: #f2f2f2;
+      --card-bg: #1a1a1a;
+      --soft-glow: 0 0 25px rgba(106, 82, 171, 0.5);
     }
-    to {
-      opacity: 1;
-      transform: translateY(0);
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
-  }
 
-  .animate-fade-in-up {
-    animation: fadeInUp 0.8s ease-out both;
-  }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
 
-  .section {
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(106, 82, 171, 0.4);
-    box-shadow: 0 10px 30px rgba(106, 82, 171, 0.3);
-    border-radius: 1.5rem;
-  }
+    header {
+      padding: 120px 20px 100px;
+      text-align: center;
+      background: linear-gradient(145deg, #1a1a1a, #0a0a0a);
+      position: relative;
+      animation: fadeIn 1s ease-in-out;
+    }
 
-  .download-btn {
-    background: linear-gradient(135deg, #6a52ab, #8b5cf6);
-    transition: all 0.3s ease;
-  }
+    .logo {
+      font-size: 3rem;
+      color: var(--accent);
+      animation: slideUp 1s ease-in-out;
+    }
 
-  .download-btn:hover {
-    background: linear-gradient(135deg, #8b5cf6, #6a52ab);
-    transform: translateY(-2px) scale(1.03);
-    box-shadow: 0 6px 15px rgba(106, 82, 171, 0.6);
-  }
-</style>
+    .tagline {
+      font-size: 1.2rem;
+      color: #aaa;
+      margin-top: 10px;
+      animation: fadeIn 1.5s ease-in-out;
+    }
 
-  </head>  <body class="flex flex-col items-center px-4 py-10 sm:px-6 lg:px-12 space-y-16">
-    <!-- Header -->
-    <header class="flex flex-row items-center space-x-6 mb-12 animate-fade-in-down">
-    <img class="w-20 h-20 rounded-2xl shadow-xl transform hover:scale-105 transition-transform duration-300" src="Untitled142_20250613154757.png" alt="Solace Logo">
-    <div>
-      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#6a52ab] drop-shadow-lg leading-tight">Solace Client</h1>
-      <p class="text-base sm:text-lg lg:text-xl text-gray-300 mt-2">The cleanest Bedrock Edition hack texture pack client</p>
-    </div>
-  </header><!-- Why Choose Section -->
-<section class="section w-full max-w-4xl p-6 sm:p-10 animate-fade-in-up">
-  <h2 class="text-3xl sm:text-4xl font-bold text-[#6a52ab] text-center mb-6">Why Choose Solace?</h2>
-  <p class="text-base sm:text-lg text-gray-300 leading-relaxed">
-    <strong class="text-white">Solace</strong> is designed to be the most minimal and powerful Bedrock Edition hack texture pack client. It includes <strong class="text-[#6a52ab]">customizable modules</strong>, <strong class="text-[#6a52ab]">combat enhancements</strong>, and stays <strong class="text-[#6a52ab]">undetected</strong> on most servers. Get smoother gameplay, clean visuals, and unmatched utility.
-  </p>
-  <p class="text-right text-sm text-gray-400 mt-6">Developed by <a href="https://yami-chi.vercel.app" target="_blank" class="text-[#6a52ab] hover:underline">Yami</a></p>
-</section>
+    .btn-main {
+      display: inline-block;
+      margin-top: 25px;
+      padding: 14px 30px;
+      background-color: var(--accent);
+      color: #fff;
+      font-weight: 600;
+      border: none;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: fadeIn 2s ease-in-out;
+    }
 
-<!-- Downloads -->
-<section class="section w-full max-w-4xl p-6 sm:p-10 animate-fade-in-up">
-  <h2 class="text-3xl sm:text-4xl font-bold text-[#6a52ab] text-center mb-6">Downloads</h2>
-  <p class="text-sm text-gray-400 text-center mb-4 italic">Not to be relinked or downloaded separately</p>
-  <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 sm:gap-8 mt-6">
-    <span class="text-xl font-semibold">Solace v1.0</span>
-    <button id="downloadButton" class="download-btn text-white px-6 py-3 rounded-lg text-base font-semibold w-full sm:w-auto">Download</button>
-  </div>
-</section>
+    .btn-main:hover {
+      transform: scale(1.05);
+      box-shadow: var(--soft-glow);
+    }
 
-<!-- Footer -->
-<footer class="flex space-x-6 text-3xl animate-fade-in-up">
-  <a href="https://github.com/Sukrisus" target="_blank" class="text-white hover:text-[#6a52ab] transition"><i class="fab fa-github"></i></a>
-  <a href="https://youtube.com/@sucidal-yami?si=YfMGkEia6t-_HQTZ" target="_blank" class="text-white hover:text-[#6a52ab] transition"><i class="fab fa-youtube"></i></a>
-</footer>
+    section {
+      padding: 60px 20px;
+      max-width: 1100px;
+      margin: auto;
+      text-align: center;
+      animation: fadeInUp 1s ease-in-out;
+    }
 
-<!-- Message Box -->
-<div id="messageBoxContainer" class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50">
-  <div class="bg-[#111] border border-[#6a52ab] rounded-2xl shadow-xl p-8 max-w-sm text-center text-gray-200 animate-fade-in-up">
-    <h3 class="text-2xl text-[#93c5fd] font-bold mb-4" id="messageBoxTitle"></h3>
-    <p class="mb-6 text-base" id="messageBoxContent"></p>
-    <button id="messageBoxCloseButton" class="download-btn px-6 py-2 rounded-md text-white font-semibold">Close</button>
-  </div>
-</div>
+    h2 {
+      color: var(--accent);
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
 
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const downloadButton = document.getElementById('downloadButton');
-    const messageBoxContainer = document.getElementById('messageBoxContainer');
-    const messageBoxTitle = document.getElementById('messageBoxTitle');
-    const messageBoxContent = document.getElementById('messageBoxContent');
-    const messageBoxCloseButton = document.getElementById('messageBoxCloseButton');
+    p {
+      color: #ccc;
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
 
-    downloadButton.addEventListener('click', () => {
-      messageBoxTitle.textContent = 'Download Unavailable';
-      messageBoxContent.textContent = 'This version is not released yet. Please check back later.';
-      messageBoxContainer.classList.remove('hidden');
-      messageBoxContainer.classList.add('flex');
-    });
+    .feature-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
 
-    messageBoxCloseButton.addEventListener('click', () => {
-      messageBoxContainer.classList.remove('flex');
-      messageBoxContainer.classList.add('hidden');
-    });
+    .feature-card {
+      background-color: var(--card-bg);
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: var(--soft-glow);
+      transition: transform 0.3s ease;
+    }
 
-    messageBoxContainer.addEventListener('click', (e) => {
-      if (e.target === messageBoxContainer) {
-        messageBoxContainer.classList.remove('flex');
-        messageBoxContainer.classList.add('hidden');
+    .feature-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .downloads .version-cards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      padding: 25px;
+      border-radius: 16px;
+      width: 260px;
+      box-shadow: var(--soft-glow);
+      transition: 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .btn-download {
+      margin-top: 15px;
+      padding: 10px 22px;
+      border-radius: 30px;
+      background: none;
+      border: 2px solid var(--accent);
+      color: var(--accent);
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-download:hover {
+      background-color: var(--accent);
+      color: white;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      font-size: 0.9rem;
+      color: #777;
+      background-color: #111;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideUp {
+      0% { opacity: 0; transform: translateY(40px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      .logo {
+        font-size: 2.2rem;
       }
-    });
-  });
-</script>
+      .card {
+        width: 90%;
+      }
+      .btn-main {
+        width: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="header-content">
+      <h1 class="logo">Solace Client</h1>
+      <p class="tagline">A sleek Bedrock Edition hack texture pack</p>
+      <a href="#download" class="btn-main">Download Now</a>
+    </div>
+  </header>
 
-  </body>
+  <section class="about">
+    <h2>What is Solace?</h2>
+    <p>Solace is a modern Minecraft Bedrock Edition client, designed to look amazing and give you access to essential enhancements — all within a texture pack. It brings subtle visual tweaks, interface overlays, and competitive advantages to your game.</p>
+    <p>It is an all-in-one .mcaddon file that contains all Solace features organized as different packs.</p>
+  </section>
+
+  <section class="features">
+    <h2>Features</h2>
+    <div class="feature-list">
+      <div class="feature-card">
+        <h3>Clean HUD</h3>
+        <p>Minimal and customizable overlays with zero clutter.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Crystal ESP</h3>
+        <p>See End Crystals through walls for easy targeting.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Player ESP</h3>
+        <p>Locate players behind walls with outlined visibility.</p>
+      </div>
+      <div class="feature-card">
+        <h3>FPS Boost</h3>
+        <p>Texture-optimized rendering for smoother gameplay.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="downloads" id="download">
+    <h2>Download Versions</h2>
+    <div class="version-cards">
+      <div class="card">
+        <h3>v1.0 (Not Released Yet)</h3>
+        <p>Initial release with core features included.</p>
+        <a href="#" class="btn-download">Download</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>© 2025 Solace Client. Not affiliated with Mojang.</p>
+  </footer>
+</body>
 </html>
